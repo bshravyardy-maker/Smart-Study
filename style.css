@@ -1,0 +1,295 @@
+:root {
+  /* Pastel & Modern Color Palette */
+  --bg-color: #f7f9fc;
+  --surface-color: #ffffff;
+  --primary-color: #a0c4ff;
+  --primary-hover: #8eb3ff;
+  --secondary-color: #ffc6ff;
+  --accent-color: #fdffb6;
+  --text-main: #334155;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  
+  --success: #caffbf;
+  --warning: #ffd6a5;
+  --danger: #ffadad;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease-in-out;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.app-header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #60a5fa, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.app-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+/* Card Style */
+.card {
+  background: var(--surface-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+/* Upload Zone */
+.upload-zone {
+  border: 2px dashed var(--primary-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  background: rgba(160, 196, 255, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.upload-zone:hover {
+  background: rgba(160, 196, 255, 0.15);
+  border-color: var(--primary-hover);
+}
+.upload-zone svg {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+.upload-zone p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.upload-zone.dragging {
+  background: var(--primary-color);
+  color: white;
+}
+.upload-zone.dragging * {
+  color: white;
+}
+
+/* Base button styles */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Text Viewer & Notes */
+.editable-area {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  resize: vertical;
+  background: var(--bg-color);
+  line-height: 1.6;
+}
+.editable-area:focus {
+  outline: 2px solid var(--primary-color);
+  border-color: transparent;
+}
+
+/* Flashcards Container */
+.flashcards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* 3D Flashcard Flip */
+.flashcard-scene {
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  perspective: 1000px;
+}
+.flashcard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+}
+.flashcard.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  background: var(--surface-color);
+  border: 2px solid var(--border-color);
+}
+.flashcard-face.front {
+  background: linear-gradient(145deg, #ffffff, #f0f4ff);
+  border-color: var(--primary-color);
+}
+.flashcard-face.back {
+  background: linear-gradient(145deg, #ffffff, #fff5f5);
+  border-color: var(--secondary-color);
+  transform: rotateY(180deg);
+}
+
+.flashcard-face h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+.flashcard-face p {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Flashcard Controls */
+.flashcard-controls {
+  display: flex;
+  gap: 1rem;
+}
+.btn-review {
+  background-color: var(--warning);
+  color: #c2410c;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+}
+.btn-review:hover { background-color: #fbd38d; }
+
+.btn-known {
+  background-color: var(--success);
+  color: #166534;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+}
+.btn-known:hover { background-color: #bbf7d0; }
+
+/* Loaders */
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  text-align: center;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--accent-color);
+  color: #a16207;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
